@@ -20,6 +20,10 @@ body {
 canvas {
     margin: 0 auto;
     border: solid;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
 }
 
 .button-bar {

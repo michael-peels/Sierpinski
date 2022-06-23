@@ -63,7 +63,7 @@ function fillLoop() {
 }
 
 function getHalfwayPoint(a, b) {
-    return new Point((a.x + b.x) / 2, (a.y + b.y) / 2);
+    return new Point(Math.floor((a.x + b.x) / 2), Math.floor((a.y + b.y) / 2));
 }
 
 function drawPoint(point) {
