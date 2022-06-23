@@ -1,7 +1,9 @@
+// Initialize canvas context
 const canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 const height = canvas.clientHeight;
 const width = canvas.clientWidth;
+
 var currentPoint;
 var running = false;
 
@@ -12,14 +14,16 @@ class Point {
     }
 }
 
-function drawPoint(point) {
-    this.ctx.fillRect(point.x, point.y, 1, 1);
-}
-
-// Set the three corners
-const pointOne = new Point(width / 2, height / 8);
-const pointTwo = new Point(width / 5, (height / 8) * 7);
-const pointThree = new Point((width / 5) * 4, (height / 8) * 7);
+// define out initial triangle boundaries
+/**
+ *               * pointA
+ *              / \
+ *             /   \
+ *    pointB  *- - -*  pointC
+ */
+const pointA = new Point(width / 2, height / 8);
+const pointB = new Point(width / 6, (height / 8) * 7);
+const pointC = new Point((width / 6) * 5, (height / 8) * 7);
 
 function handleStart() {
     if (currentPoint == undefined) {
@@ -31,12 +35,22 @@ function handleStart() {
     fillLoop();
 }
 
+function handleClear() {
+    running = false;
+    ctx.clearRect(0, 0, width, height);
+}
+
+function handleStop() {
+    running = false;
+}
+
+// loop handles the logic of drawing the Sierpiński triangle
 function fillLoop() {
     // pick random corner of triangle
     var cornerNumber = Math.floor(Math.random() * 3) + 1;
-    var corner = cornerNumber == 1 ? pointOne : cornerNumber == 2 ? pointTwo : pointThree;
+    var corner = cornerNumber == 1 ? pointA : cornerNumber == 2 ? pointB : pointC;
 
-    // draw dot half way between currentpoint and corner
+    // update currentPoint to be a new point halfway between currentPoint and corner
     currentPoint = getHalfwayPoint(currentPoint, corner);
     drawPoint(currentPoint);
 
@@ -48,30 +62,27 @@ function fillLoop() {
     }
 }
 
-function getHalfwayPoint(pointA, pointB) {
-    return new Point((pointA.x + pointB.x) / 2, (pointA.y + pointB.y) / 2);
+function getHalfwayPoint(a, b) {
+    return new Point((a.x + b.x) / 2, (a.y + b.y) / 2);
 }
 
+function drawPoint(point) {
+    ctx.fillRect(point.x, point.y, 1, 1);
+}
+
+// code 'borrowed' from
+// https://stackoverflow.com/questions/19654251/random-point-inside-triangle-inside-java
 function getPointInsideTriangle() {
     var r1 = Math.random();
     var r2 = Math.random();
     x =
-        (1 - Math.sqrt(r1)) * pointTwo.x +
-        Math.sqrt(r1) * (1 - r2) * pointOne.x +
-        Math.sqrt(r1) * r2 * pointThree.x;
+        (1 - Math.sqrt(r1)) * pointB.x +
+        Math.sqrt(r1) * (1 - r2) * pointA.x +
+        Math.sqrt(r1) * r2 * pointC.x;
     y =
-        (1 - Math.sqrt(r1)) * pointTwo.y +
-        Math.sqrt(r1) * (1 - r2) * pointOne.y +
-        Math.sqrt(r1) * r2 * pointThree.y;
+        (1 - Math.sqrt(r1)) * pointB.y +
+        Math.sqrt(r1) * (1 - r2) * pointA.y +
+        Math.sqrt(r1) * r2 * pointC.y;
 
     return new Point(x, y);
-}
-
-function handleClear() {
-    running = false;
-    ctx.clearRect(0, 0, width, height);
-}
-
-function handleStop() {
-    running = false;
 }
