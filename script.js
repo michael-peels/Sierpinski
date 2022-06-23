@@ -14,7 +14,7 @@ class Point {
     }
 }
 
-// define out initial triangle boundaries
+// define our initial triangle boundaries
 /**
  *               * pointA
  *              / \
