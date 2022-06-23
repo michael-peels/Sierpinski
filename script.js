@@ -46,19 +46,22 @@ function handleStop() {
 
 // loop handles the logic of drawing the Sierpiński triangle
 function fillLoop() {
-    // pick random corner of triangle
-    var cornerNumber = Math.floor(Math.random() * 3) + 1;
-    var corner = cornerNumber == 1 ? pointA : cornerNumber == 2 ? pointB : pointC;
-
-    // update currentPoint to be a new point halfway between currentPoint and corner
-    currentPoint = getHalfwayPoint(currentPoint, corner);
-    drawPoint(currentPoint);
-
     if (running) {
+        // pick random corner of triangle
+        var cornerNumber = Math.floor(Math.random() * 3) + 1;
+        var corner = cornerNumber == 1 ? pointA : cornerNumber == 2 ? pointB : pointC;
+
+        // update currentPoint to be a new point halfway between currentPoint and corner
+        currentPoint = getHalfwayPoint(currentPoint, corner);
+        drawPoint(currentPoint);
+
         // repeat until clear clicked
-        setTimeout(() => {
-            fillLoop();
-        }, 1);
+        // speed up drawing by setting multiple timeouts
+        for (var i = 0; i < 2; i++) {
+            setTimeout(() => {
+                fillLoop();
+            }, 1);
+        }
     }
 }
 
