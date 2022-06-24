@@ -173,7 +173,7 @@ function getHalfwayPoint(a, b) {
 // draws a rectangle centered on the point
 function drawPoint(point, size = 1, color = "black", clear = false) {
     ctx.fillStyle = color;
-    var halfSize = Math.ceil(size / 2);
+    var halfSize = Math.floor(size / 2);
     if (clear) {
         ctx.clearRect(point.x - halfSize, point.y - halfSize, size, size);
     } else {
@@ -222,5 +222,5 @@ function getPointInsideTriangle() {
         Math.sqrt(r1) * (1 - r2) * pointA.y +
         Math.sqrt(r1) * r2 * pointC.y;
 
-    return new Point(x, y);
+    return new Point(Math.floor(x), Math.floor(y));
 }
