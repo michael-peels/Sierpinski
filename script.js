@@ -7,6 +7,7 @@ const width = canvas.clientWidth;
 // Get reference to ordered list
 const orderedList = document.getElementById("list");
 
+const DELAY = 1700;
 var currentPoint;
 var currentCorner;
 var running = false;
@@ -85,8 +86,8 @@ function step1() {
         currentPoint = getPointInsideTriangle();
         setTimeout(() => {
             drawPoint(currentPoint, 2, "red");
-            callWithDelay(step2, 2000);
-        }, 2000);
+            callWithDelay(step2, DELAY);
+        }, DELAY);
         currentStep = 2;
     }
 }
@@ -98,8 +99,8 @@ function step2() {
         currentCorner = getRandomCorner();
         setTimeout(() => {
             drawPoint(currentCorner, 6, "red");
-            callWithDelay(step3, 2000);
-        }, 3000);
+            callWithDelay(step3, DELAY);
+        }, DELAY);
         currentStep = 3;
     }
 }
@@ -109,8 +110,10 @@ function step3() {
     if (running && currentStep === 3) {
         displayStep(currentStep);
         currentPoint = getHalfwayPoint(currentPoint, currentCorner);
-        drawPoint(currentPoint);
-        callWithDelay(step4, 4000);
+        setTimeout(() => {
+            drawPoint(currentPoint);
+            callWithDelay(step4, DELAY);
+        }, DELAY);
         currentStep = 4;
     }
 }
@@ -121,7 +124,7 @@ function step4() {
         displayStep(currentStep);
         callWithDelay(() => {
             fillLoop();
-        }, 1000);
+        }, DELAY);
     }
 }
 
@@ -157,7 +160,7 @@ function fillLoop() {
         drawPoint(currentPoint);
 
         setTimeout(fillLoop, 1);
-        setTimeout(fillLoop, 1500);
+        setTimeout(fillLoop, DELAY);
     }
 }
 
@@ -190,7 +193,7 @@ function callWithDelay(method, delay) {
 }
 
 // gradually draws a line with optional callback when finished
-function drawLine(start, end, ratio, callback, callbackDelay = 2000) {
+function drawLine(start, end, ratio, callback, callbackDelay = DELAY) {
     x2 = start.x + ratio * (end.x - start.x);
     y2 = start.y + ratio * (end.y - start.y);
     ctx.beginPath();
@@ -200,7 +203,7 @@ function drawLine(start, end, ratio, callback, callbackDelay = 2000) {
     if (ratio < 1) {
         setTimeout(() => {
             drawLine(start, end, ratio + 0.02, callback, callbackDelay);
-        }, 50);
+        }, 60);
     } else {
         if (callback !== undefined) {
             callWithDelay(callback, callbackDelay);

@@ -33,6 +33,7 @@ body {
 }
 
 canvas {
+    background-color: white;
     border: solid;
     image-rendering: -moz-crisp-edges;
     image-rendering: -webkit-crisp-edges;
