@@ -12,13 +12,27 @@ body {
     padding-left: 15px;
 }
 
-.canvas-wrapper {
+.content {
     display: flex;
-    justify-content: center;
+}
+
+.steps {
+    width: 33%;
+}
+
+.steps ol li {
+    transition: opacity 1.5s;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.canvas-wrapper {
+    flex-grow: 1;
 }
 
 canvas {
-    margin: 0 auto;
     border: solid;
     image-rendering: -moz-crisp-edges;
     image-rendering: -webkit-crisp-edges;

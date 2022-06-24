@@ -8,9 +8,23 @@
         <div class="header">
             <h2>Sierpiński Triangle</h2>
         </div>
-        <div class="canvas-wrapper">
-            <canvas id="canvas" width="450" height="450"></canvas>
+        <div class="content">
+            <div class="steps">
+                <ol id="list">
+                    <li class="hidden">Draw a triangle</li>
+                    <li class="hidden">Choose a random point within the triangle</li>
+                    <li class="hidden">Choose a random corner of the triagle</li>
+                    <li class="hidden">
+                        Draw a dot halfway between the point and the random corner
+                    </li>
+                    <li class="hidden">Using this new point, repeat step 3-4</li>
+                </ol>
+            </div>
+            <div class="canvas-wrapper">
+                <canvas id="canvas" width="450" height="450"></canvas>
+            </div>
         </div>
+
         <div class="button-bar">
             <button onclick="handleStart()">Start</button>
             <button onclick="handleStop()">Stop</button>
